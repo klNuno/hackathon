@@ -18,9 +18,9 @@ float getRightDistance (void);
 
 int getAllDistances (float* distanceTable);
 
-InterruptIn Echo (PD_12);
-DigitalOut Pulse (PF_8);
-BusOut Selecter (PE_4,PC_6);
+InterruptIn Echo (PD_3);
+DigitalOut Pulse (PC_3);
+BusOut Selecter (PC_8,PF_9);
 DigitalOut led (LED1);
 Timer tempo;
 
@@ -32,6 +32,7 @@ int canal=0;
 
 int main() {
 
+    float test;
     int flags = 0;
 
     printf("Boot-Up - NUCLEO F429ZI");
@@ -44,11 +45,11 @@ int main() {
 
     while (true) {
         flags = myEvent.wait_any(0x0F);
-        if (flags & 0x01) printf ("front = %f\n", getFrontDistance());
-        if (flags & 0x02) printf ("left = %f\n", getLeftDistance());
-        if (flags & 0x04) printf ("rear = %f\n", getRearDistance());
-        if (flags & 0x08) printf ("right = %f\n", getRightDistance());
-        ThisThread::sleep_for(50ms);
+        //if (flags & 0x01) printf ("\nfront = %f", getFrontDistance());     //FONCTIONNE
+        test = getLeftDistance();
+        if (flags & 0x02 && test < 990) printf ("\nleft = %f", test);         //FONCTIONNE PAS
+        //if (flags & 0x04) printf ("\nrear = %f", getRearDistance());        //FONCTIONNE
+        //if (flags & 0x08) printf ("\nright = %f", getRightDistance());         //FONCTIONNE
     }
     return 0;
 }
@@ -100,4 +101,3 @@ int getAllDistances (float* distanceTable){
     }
     return 0;
 }
-
