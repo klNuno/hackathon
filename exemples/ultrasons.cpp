@@ -32,7 +32,7 @@ int canal=0;
 
 int main() {
 
-    float test;
+    float val;
     int flags = 0;
 
     printf("Boot-Up - NUCLEO F429ZI");
@@ -45,11 +45,14 @@ int main() {
 
     while (true) {
         flags = myEvent.wait_any(0x0F);
-        //if (flags & 0x01) printf ("\nfront = %f", getFrontDistance());     //FONCTIONNE
-        test = getLeftDistance();
-        if (flags & 0x02 && test < 990) printf ("\nleft = %f", test);         //FONCTIONNE PAS
-        //if (flags & 0x04) printf ("\nrear = %f", getRearDistance());        //FONCTIONNE
-        //if (flags & 0x08) printf ("\nright = %f", getRightDistance());         //FONCTIONNE
+        val = getFrontDistance();
+        if (flags & 0x01 && val < 900) printf ("\nfront = %f", val);     //FONCTIONNE
+        val = getLeftDistance();
+        if (flags & 0x02 && val < 900) printf ("\nleft = %f", val);         //FONCTIONNE seulement avec fix
+        val = getRearDistance();
+        if (flags & 0x04 && val < 900) printf ("\nrear = %f", val);        //FONCTIONNE
+        val = getRightDistance();
+        if (flags & 0x08 && val < 900) printf ("\nright = %f", val);         //FONCTIONNE
     }
     return 0;
 }
