@@ -6,7 +6,7 @@
 
 #define WAIT_TIME_MS 100ms
 DigitalOut led1(LED1);
-PIXY2 cam (PD_5, PD_6, 230000);
+PIXY2 cam (PE_8, PE_7, 230000);
 
 int main()
 {
